@@ -10,7 +10,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from webdriver_manager.chrome import ChromeDriverManager
 import telebot
 
 import smtplib
@@ -82,15 +81,13 @@ def notify(msg):
 def create_driver():
     options = Options()
     options.add_argument("--headless=new")
-    options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
 
-    return webdriver.Chrome(
-        service=Service(ChromeDriverManager().install()),
-        options=options
-    )
+    # IMPORTANT: point to chromium binary
+    options.binary_location = "/usr/bin/chromium"
 
+    return webdriver.Chrome(options=options)
 
 def login(driver):
     log("Logging in...")

@@ -1,0 +1,5 @@
+docker run -d \
+  --name sbat-checker \
+  --restart always \
+  --env-file .env \
+  sbat-checker
